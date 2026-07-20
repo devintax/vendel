@@ -1,0 +1,63 @@
+package com.jimscope.vendel.data.repository
+
+import com.jimscope.vendel.data.local.dao.MessageLogDao
+import com.jimscope.vendel.data.local.dao.PendingReportDao
+import com.jimscope.vendel.data.preferences.SecurePreferences
+import com.jimscope.vendel.data.repository.SenderFilterRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import javax.inject.Inject
+import javax.inject.Singleton
+
+data class ConnectionConfig(
+    val serverUrl: String = "",
+    val apiKey: String = "",
+    val deviceId: String = "",
+    val isConfigured: Boolean = false,
+    val lastSyncTimestamp: Long = 0L
+)
+
+@Singleton
+class ConfigRepository @Inject constructor(
+    private val securePreferences: SecurePreferences,
+    private val messageLogDao: MessageLogDao,
+    private val pendingReportDao: PendingReportDao,
+    private val senderFilterRepository: SenderFilterRepository
+) {
+    private val _config = MutableStateFlow(loadConfig())
+    val config: StateFlow<ConnectionConfig> = _config.asStateFlow()
+
+    private fun loadConfig(): ConnectionConfig {
+        return ConnectionConfig(
+            serverUrl = securePreferences.serverUrl,
+            apiKey = securePreferences.apiKey,
+            deviceId = securePreferences.deviceId,
+            isConfigured = securePreferences.isConfigured,
+            lastSyncTimestamp = securePreferences.lastSyncTimestamp
+        )
+    }
+
+    fun saveConfig(serverUrl: String, apiKey: String) {
+        securePreferences.serverUrl = serverUrl
+        securePreferences.apiKey = apiKey
+        _config.value = loadConfig()
+    }
+
+    fun saveDeviceId(deviceId: String) {
+        securePreferences.deviceId = deviceId
+        _config.value = loadConfig()
+    }
+
+    suspend fun disconnect() {
+        messageLogDao.deleteAll()
+        pendingReportDao.deleteAll()
+        senderFilterRepository.reset()
+        securePreferences.clear()
+        _config.value = ConnectionConfig()
+    }
+
+    fun refresh() {
+        _config.value = loadConfig()
+    }
+}

@@ -1,0 +1,79 @@
+﻿{
+    "project_info":  {
+                         "project_number":  "303110974046",
+                         "project_id":  "textbee-gateway-2410a",
+                         "storage_bucket":  "textbee-gateway-2410a.firebasestorage.app"
+                     },
+    "client":  [
+                   {
+                       "client_info":  {
+                                           "mobilesdk_app_id":  "1:303110974046:android:c92ec0036b56c04d7fe2cf",
+                                           "android_client_info":  {
+                                                                       "package_name":  "com.textbee.app"
+                                                                   }
+                                       },
+                       "oauth_client":  [
+
+                                        ],
+                       "api_key":  [
+                                       {
+                                           "current_key":  "AIzaSyCA5pOdnnbXPw4tPMy3OVhGAYtul6J0kUs"
+                                       }
+                                   ],
+                       "services":  {
+                                        "appinvite_service":  {
+                                                                  "other_platform_oauth_client":  [
+
+                                                                                                  ]
+                                                              }
+                                    }
+                   },
+                   {
+                       "client_info":  {
+                                           "mobilesdk_app_id":  "1:303110974046:android:ce53f301a88b00ea7fe2cf",
+                                           "android_client_info":  {
+                                                                       "package_name":  "com.vendel.app"
+                                                                   }
+                                       },
+                       "oauth_client":  [
+
+                                        ],
+                       "api_key":  [
+                                       {
+                                           "current_key":  "AIzaSyCA5pOdnnbXPw4tPMy3OVhGAYtul6J0kUs"
+                                       }
+                                   ],
+                       "services":  {
+                                        "appinvite_service":  {
+                                                                  "other_platform_oauth_client":  [
+
+                                                                                                  ]
+                                                              }
+                                    }
+                   },
+                   {
+                       "client_info":  {
+                                           "android_client_info":  {
+                                                                       "package_name":  "com.jimscope.vendel"
+                                                                   },
+                                           "mobilesdk_app_id":  "1:303110974046:android:d3f4a5b6c7d8e9f0"
+                                       },
+                       "api_key":  [
+                                       {
+                                           "current_key":  "AIzaSyCA5pOdnnbXPw4tPMy3OVhGAYtul6J0kUs"
+                                       }
+                                   ],
+                       "services":  {
+                                        "appinvite_service":  {
+                                                                  "other_platform_oauth_client":  [
+
+                                                                                                  ]
+                                                              }
+                                    },
+                       "oauth_client":  [
+
+                                        ]
+                   }
+               ],
+    "configuration_version":  "1"
+}
