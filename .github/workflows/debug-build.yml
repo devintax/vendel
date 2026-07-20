@@ -3,7 +3,7 @@ name: Debug Build
 on:
   push:
     tags:
-      - "debug-*"
+      - "dbg-*"
 
 jobs:
   build:
@@ -16,15 +16,10 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-
       - name: Build debug APKs
         run: ./gradlew assembleDebug
 
-      - name: Upload APKs
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
-          name: vendel-debug-apks
+          name: apks
           path: app/build/outputs/apk/debug/*.apk
-          if-no-files-found: error
