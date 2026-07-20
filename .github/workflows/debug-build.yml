@@ -5,9 +5,6 @@ on:
     tags:
       - "debug-*"
 
-permissions:
-  contents: write
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,18 +22,9 @@ jobs:
       - name: Build debug APKs
         run: ./gradlew assembleDebug
 
-      - name: Rename APKs
-        run: |
-          VERSION="${GITHUB_REF_NAME#debug-}"
-          cd app/build/outputs/apk/debug
-          mv app-universal-debug.apk "vendel-v${VERSION}-debug-universal.apk" || true
-          mv app-arm64-v8a-debug.apk "vendel-v${VERSION}-debug-arm64-v8a.apk" || true
-          mv app-armeabi-v7a-debug.apk "vendel-v${VERSION}-debug-armeabi-v7a.apk" || true
-          mv app-x86_64-debug.apk "vendel-v${VERSION}-debug-x86_64.apk" || true
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+      - name: Upload APKs
+        uses: actions/upload-artifact@v4
         with:
-          name: "Vendel Debug ${{ github.ref_name }}"
-          prerelease: true
-          files: app/build/outputs/apk/debug/vendel-*.apk
+          name: vendel-debug-apks
+          path: app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
